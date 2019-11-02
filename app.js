@@ -1,13 +1,21 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var logger = require("morgan");
-var exphbs = require("express-handlebars");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const logger = require("morgan");
+const exphbs = require("express-handlebars");
+const mongoose = require("mongoose");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/pageRoutes");
+const usersRouter = require("./routes/users");
+const apiRouter = require("./routes/apiRoutes");
 
-var app = express();
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/beavertonscraper", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true //Server Discovery/Monitor
+});
+
+const app = express();
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App listening on port ${process.env.PORT || 3000}`);
@@ -23,6 +31,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/api", apiRouter);
+
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

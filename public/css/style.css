@@ -1,0 +1,24 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+.landing,
+main,
+footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+  .landing,
+  main,
+  footer {
+    padding-left: 0;
+  }
+}
+#leaf {
+  width: 25;
+  height: 25px;
+}
