@@ -9,13 +9,19 @@ router.get("/scrape", (req, resp, next) => {
   Scraper.scrape(res => {
     //get JSON returned back from custom cheerio iteration helper.
     let data = cheerioHelper(res.data);
-    db.Article.insertMany(data, { ordered: false })
-      .then(result => {
-        resp.json(result);
-      })
-      .catch(err => {
-        resp.json({ error: err });
-      });
+    db.Article.insertMany(data, { ordered: false }, (err, docs) => {
+      if (err) {
+        //Existing articles exist. Unique Constraint enforced on title
+        console.log(err);
+      }
+      resp.json(docs);
+    });
+    // .then(result => {
+    //   resp.json(result);
+    // })
+    // .catch(err => {
+    //   resp.json({ error: err });
+    // });
   });
 });
 
@@ -27,21 +33,6 @@ router.get("/articles", (req, resp, next) => {
     //return err info
     resp.json(err);
   });
-});
-
-// GET SINGLE ARTICLE data with comments
-router.get("/article/:id", (req, resp, next) => {
-  let _id = req.params.id;
-
-  db.Article.findOne({ _id })
-    .populate("comments")
-    .then(article => {
-      resp.json(article);
-    })
-    .catch(err => {
-      //return err info
-      resp.json(err);
-    });
 });
 
 //MAKE A COMMENT, API ROUTE
@@ -71,14 +62,17 @@ router.post("/article/:id", (req, resp, next) => {
 //Leaves the original comment stored in comment collection for records.
 router.put("/article/:id", (req, resp) => {
   let _id = req.params.id;
-  db.Article.findByIdAndUpdate({ _id }, { $pull: { comments: req.body.id } }, { new: true }).then();
+  db.Article.findByIdAndUpdate({ _id }, { $pull: { comments: req.body.id } }, { new: true }).then(res => {
+    resp.json(res);
+  });
 });
 
 //GET SINGLE ARTICLE DATA,
 //Gets single article data with populated comments array
-router.get("/articles/:id", (req, res) => {
+router.get("/article/:id", (req, res) => {
+  console.log(req.params.id);
   db.Article.findOne({ _id: req.params.id })
-    .populate("comment")
+    .populate("comments")
     .then(article => {
       res.json(article);
     })

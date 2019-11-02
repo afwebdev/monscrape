@@ -5,14 +5,12 @@ html {
   padding: 0;
 }
 
-.landing,
 main,
 footer {
   padding-left: 300px;
 }
 
 @media only screen and (max-width: 992px) {
-  .landing,
   main,
   footer {
     padding-left: 0;
@@ -21,4 +19,28 @@ footer {
 #leaf {
   width: 25;
   height: 25px;
+}
+
+#loaderWrapper {
+  margin-top: 25%;
+  width: 100%;
+  text-align: center;
+}
+
+.articleCol {
+  display: none;
+  margin-top: 3em;
+}
+
+.landing {
+  text-align: center;
+}
+
+.readmore {
+  padding-left: 0.5em;
+}
+
+.material-icons {
+  font-size: 34px;
+  color: firebrick;
 }

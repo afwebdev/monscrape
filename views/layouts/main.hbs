@@ -29,13 +29,29 @@
 
 
 
-  <script src="/js/index.js"></script>
-
   <title>Scraper</title>
 </head>
 
 <body>
-  {{{body}}}
+  {{!-- NAVBAR --}}
+  <div class="nav">
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li class="active"><a href="/">Home</a></li>
+      <li><a href="/">Fetch Articles</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger">
+      <i class="material-icons">menu</i>
+    </a>
+  </div>
+
+  <main>
+    <div class="container">
+      {{{body}}}
+
+    </div>
+    </div>
+  </main>
+
 </body>
 
 </html>

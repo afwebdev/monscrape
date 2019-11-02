@@ -1,30 +1,66 @@
 $(document).ready(function() {
   $(".sidenav").sidenav();
 
-  fetch("/api/articles")
-    .then(res => res.json())
-    .then(articles => {
-      articles.forEach(article => {
-        let { date, description, link, title } = article;
+  let $loader = `
+  <div id="loaderWrapper">
+  <div class="preloader-wrapper active">
+  	<div class="spinner-layer spinner-red-only">
+		<div class="circle-clipper left">
+		 	<div class="circle"></div>
+		</div><div class="gap-patch">
+	  <div class="circle"></div>
+	</div><div class="circle-clipper right">
+	  <div class="circle"></div>
+	</div>
+  </div>
+</div>
+</div>`;
 
-        let colItem = $("<li>").addClass("collection-item");
-        let saveIcon = $("<i>")
-          .addClass("material-icons")
-          .text("grade");
-        let saveAnchor = $("<a>")
-          .attr({ href: "#" })
-          .addClass("secondary-content")
-          .append(saveIcon);
+  $(".articleContainer").prepend($loader);
 
-        let dateSpan = $("<span>").text(date);
-        let descriptionParagraph = $("<p>").text(description);
-        let titleH5 = $("<h5>").text(title);
-        let linkSpan = $("<a>")
-          .attr({ href: link })
-          .append("<span>")
-          .text("Read More");
+  fetch("/api/scrape").then(() => {
+    fetch("/api/articles")
+      .then(res => res.json())
+      .then(articles => {
+        console.log("hello");
+        articles.forEach(article => {
+          let { _id, date, description, link, title } = article;
 
-        $(".articleCol").append(colItem.append([saveAnchor, dateSpan, titleH5, descriptionParagraph, linkSpan]));
+          let colItem = $("<li>").addClass("collection-item");
+
+          let commentIcon = $("<i>")
+            .addClass("material-icons")
+            .text("comment");
+
+          let saveIcon = $("<i>")
+            .addClass("material-icons")
+            .text("grade");
+
+          let commentAnchor = $("<a>")
+            .attr({ href: `/article/${_id}`, "data-id": _id })
+            .addClass("secondary-content")
+            .append(commentIcon);
+
+          let saveAnchor = $("<a>")
+            .attr({ href: "#" })
+            .addClass("secondary-content")
+            .append(saveIcon);
+
+          let linkSpan = $("<a>")
+            .addClass("readmore")
+            .attr({ href: link })
+            .append("<span>")
+            .text("Read More");
+          let dateSpan = $("<span>").text(date);
+          let descriptionParagraph = $("<p>")
+            .text(description)
+            .append(linkSpan);
+          let titleH5 = $("<h5>").text(title);
+
+          $(".articleCol").append(colItem.append([saveAnchor, commentAnchor, dateSpan, titleH5, descriptionParagraph]));
+          $("#loaderWrapper").remove();
+          $(".articleCol").fadeIn(1200);
+        });
       });
-    });
+  });
 });
