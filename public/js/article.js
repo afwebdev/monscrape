@@ -42,9 +42,7 @@ $(document).ready(function() {
           }
         })
           .then(res => res.json())
-          .then(res => {
-            console.log(res);
-          });
+          .then((window.location = window.location.pathname));
       });
 
       //New Comment Modal
