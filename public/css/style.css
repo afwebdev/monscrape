@@ -92,6 +92,10 @@ p#articleInfo {
   padding-right: 1em;
 }
 
+.material-icons.prefix.active {
+  color: firebrick;
+}
+
 /* added */
 
 .landing {
@@ -103,8 +107,16 @@ p#articleInfo {
 }
 
 .material-icons {
+  color: rgb(229, 32, 39);
   font-size: 34px;
-  color: firebrick;
+}
+
+#newCommentModal {
+  margin: 1em;
+}
+
+#submitForm {
+  margin-top: 3em;
 }
 
 .withlove {

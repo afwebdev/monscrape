@@ -29,11 +29,11 @@ $(document).ready(function() {
           let colItem = $("<li>").addClass("collection-item");
 
           let commentIcon = $("<i>")
-            .addClass("material-icons")
+            .addClass(["material-icons", "commentIcon"])
             .text("comment");
 
           let saveIcon = $("<i>")
-            .addClass("material-icons")
+            .addClass(["material-icons", "saveIcon"])
             .text("grade");
 
           let commentAnchor = $("<a>")

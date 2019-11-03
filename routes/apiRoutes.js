@@ -38,7 +38,8 @@ router.get("/articles", (req, resp, next) => {
 //MAKE A COMMENT, API ROUTE
 router.post("/article/:id", (req, resp, next) => {
   let id = req.params.id;
-  let data = ({ post, author, comment } = req.body);
+  let data = ({ author, userComment } = req.body);
+  console.log(req);
   console.log(data);
 
   //Create the comment, and push to article comments array
