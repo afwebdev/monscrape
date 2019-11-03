@@ -60,9 +60,10 @@ router.post("/article/:id", (req, resp, next) => {
 // REQ.BODY.ID HOLDS COMMENT ID
 //Removes the selected comment from the article collections comments array,
 //Leaves the original comment stored in comment collection for records.
-router.put("/article/:id", (req, resp) => {
+router.put("/article/:id/comment/:cid", (req, resp) => {
   let _id = req.params.id;
-  db.Article.findByIdAndUpdate({ _id }, { $pull: { comments: req.body.id } }, { new: true }).then(res => {
+  let commentID = req.params.cid;
+  db.Article.findByIdAndUpdate({ _id }, { $pull: { comments: commentID } }, { new: true }).then(res => {
     resp.json(res);
   });
 });
@@ -70,6 +71,7 @@ router.put("/article/:id", (req, resp) => {
 //GET SINGLE ARTICLE DATA,
 //Gets single article data with populated comments array
 router.get("/article/:id", (req, res) => {
+  console.log(req.url);
   console.log(req.params.id);
   db.Article.findOne({ _id: req.params.id })
     .populate("comments")

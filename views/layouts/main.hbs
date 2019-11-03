@@ -27,6 +27,14 @@
   {{!-- CSS --}}
   <link rel='stylesheet' href='/css/style.css' />
 
+  {{!-- FONT --}}
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap"
+    rel="stylesheet">
+
+  {{!-- FONT AWESOME --}}
+  <script src="https://kit.fontawesome.com/73484156dc.js"
+    crossorigin="anonymous"></script>
+
 
 
   <title>Scraper</title>
@@ -36,6 +44,23 @@
   {{!-- NAVBAR --}}
   <div class="nav">
     <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="/img/redWood.jpg">
+          </div>
+          <div>
+            <span class="white-text">Made by</span>
+            <a style="display: block;" class="white-text"
+              href="https://www.github.com/afwebdev"><i class="fab fa-github"></i><span>
+                /afwebdev</span></a>
+            <a style="display: block;" class="white-text"
+              href="https://www.linkedin.com/in/afwebdev/"><i
+                class="fab fa-linkedin"></i><span>
+                /afwebdev</span></a>
+          </div>
+        </div>
+      </li>
       <li class="active"><a href="/">Home</a></li>
       <li><a href="/">Fetch Articles</a></li>
     </ul>
@@ -47,11 +72,8 @@
   <main>
     <div class="container">
       {{{body}}}
-
-    </div>
     </div>
   </main>
-
 </body>
 
 </html>

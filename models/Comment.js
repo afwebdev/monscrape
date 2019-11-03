@@ -7,7 +7,7 @@ var commentSchema = new Schema(
     author: {
       type: String
     },
-    comment: {
+    userComment: {
       type: String
     }
   },

@@ -51,7 +51,9 @@ $(document).ready(function() {
             .attr({ href: link })
             .append("<span>")
             .text("Read More");
-          let dateSpan = $("<span>").text(date);
+          let dateSpan = $("<span>")
+            .addClass("dateSpan")
+            .text(date);
           let descriptionParagraph = $("<p>")
             .text(description)
             .append(linkSpan);
